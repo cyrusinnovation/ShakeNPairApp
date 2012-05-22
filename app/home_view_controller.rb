@@ -14,8 +14,10 @@ class HomeViewController < UIViewController
     super
   end
   
-  def viewDidLoad
-
+  def viewWillAppear(animated)
+    super
+    puts "view will appear"
+    
     current_pairing = UIApplication.sharedApplication.delegate.current_pairing
     
     y = 40
@@ -26,6 +28,8 @@ class HomeViewController < UIViewController
     end
   end
   
+
+  
   def make_pair_label(pair, y)
     label = UILabel.alloc.initWithFrame([[40,y],[200,20]])
     label.text = (pair.size == 2) ? "#{pair.first} & #{pair.last}" : "#{pair.first}"
@@ -33,10 +37,16 @@ class HomeViewController < UIViewController
   end
 
   def motionBegan(motion, withEvent:event)
-    puts "got a motion"
+    puts "got a began motion"
+
   end
   
   def motionEnded(motion, withEvent:event)
     puts "got a end motion"
+    UIApplication.sharedApplication.delegate.reset_pairing()
+
+    self.viewWillAppear(false)
+    
+    puts "done end motion"
   end
 end
