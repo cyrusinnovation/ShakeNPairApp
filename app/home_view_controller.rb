@@ -18,11 +18,13 @@ class HomeViewController < UIViewController
 
   def viewDidLoad
     display_pairs
+    display_info_button
   end
 
   def motionEnded(motion, withEvent:event)
     redisplay_pairs
   end
+
 
   #non-framework methods
 
@@ -41,23 +43,41 @@ class HomeViewController < UIViewController
     @pair_labels.each_with_index do |label, index|
       UIView.animateWithDuration(0.2, delay:index, options:UIViewAnimationCurveLinear, animations:lambda do
           label.alpha = 1
-        end, completion:lambda do |finished| end)
-      end
+      end, completion:lambda do |finished| end)
     end
-
-    def make_pair_label(pair, y)
-      label = UILabel.alloc.initWithFrame([[0,y],[view.bounds.size.width,39]])
-      label.text = (pair.size == 2) ? "#{pair.first} & #{pair.last}" : "#{pair.first}"
-      label
-    end
-
-    def redisplay_pairs
-      UIApplication.sharedApplication.delegate.reset_pairing()
-      @pair_labels.each do |pair_label|
-        pair_label.removeFromSuperview()
-      end
-
-      display_pairs
-    end  
-
   end
+
+  def make_pair_label(pair, y)
+    label = UILabel.alloc.initWithFrame([[0,y],[view.bounds.size.width,39]])
+    label.text = (pair.size == 2) ? "#{pair.first} & #{pair.last}" : "#{pair.first}"
+    label
+  end
+
+  def redisplay_pairs
+    UIApplication.sharedApplication.delegate.reset_pairing()
+    @pair_labels.each do |pair_label|
+      pair_label.removeFromSuperview()
+    end
+    @pair_labels = nil
+
+    display_pairs
+  end  
+
+  def transitionToEditScreen(sender)
+    editTeamViewController = EditTeamViewController.alloc.init
+    editTeamViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal
+    self.presentViewController(editTeamViewController, animated:true, completion:lambda do end )
+  end
+  
+  def display_info_button
+    editTeamButton = UIButton.buttonWithType(UIButtonTypeInfoLight)
+    
+    editTeamButton.frame = CGRectMake(view.bounds.size.width - 30,
+                                  view.bounds.size.height - 30, 
+                                  editTeamButton.bounds.size.width, 
+                                  editTeamButton.bounds.size.height)
+    editTeamButton.addTarget(self, action:"transitionToEditScreen:", forControlEvents:UIControlEventTouchUpInside)
+    view.addSubview(editTeamButton)
+  end
+
+end
