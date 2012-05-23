@@ -9,7 +9,7 @@ class AppDelegate
   end
   
   def team
-    ["Jon", "Laura", "Matt", "Moss", "Nick"]
+    ["Jon", "Laura", "Matt", "Moss", "Nick", "Another Matt", "Another Moss", "Will", "Jackie"]
   end
   
   def current_pairing

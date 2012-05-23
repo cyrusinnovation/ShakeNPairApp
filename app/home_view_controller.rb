@@ -20,12 +20,10 @@ class HomeViewController < UIViewController
   end
   
   def display_pairs
-     current_pairing = UIApplication.sharedApplication.delegate.current_pairing
-
      y = 40
      @pair_labels = []
 
-     current_pairing.each do |pair|
+     UIApplication.sharedApplication.delegate.current_pairing.each do |pair|
        label = make_pair_label(pair, y)
        @pair_labels << label
        view.addSubview(label)
@@ -39,11 +37,6 @@ class HomeViewController < UIViewController
     label
   end
 
-  def motionBegan(motion, withEvent:event)
-    puts "got a began motion"
-
-  end
-  
   def redisplay_pairs
     UIApplication.sharedApplication.delegate.reset_pairing()
     @pair_labels.each do |pair_label|
@@ -54,9 +47,6 @@ class HomeViewController < UIViewController
   end
   
   def motionEnded(motion, withEvent:event)
-    puts "got a end motion"
-    self.redisplay_pairs()
-    
-    puts "done end motion"
+    redisplay_pairs()
   end
 end
