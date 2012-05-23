@@ -14,21 +14,24 @@ class HomeViewController < UIViewController
     super
   end
   
-  def viewWillAppear(animated)
-    super
-    puts "view will appear"
-    
-    current_pairing = UIApplication.sharedApplication.delegate.current_pairing
-    
-    y = 40
-    
-    current_pairing.each do |pair|
-      view.addSubview(make_pair_label(pair, y))
-      y += 40
-    end
+  def viewDidLoad
+    display_pairs
+    puts view.subviews
   end
   
+  def display_pairs
+     current_pairing = UIApplication.sharedApplication.delegate.current_pairing
 
+     y = 40
+     @pair_labels = []
+
+     current_pairing.each do |pair|
+       label = make_pair_label(pair, y)
+       @pair_labels << label
+       view.addSubview(label)
+       y += 40
+     end
+  end
   
   def make_pair_label(pair, y)
     label = UILabel.alloc.initWithFrame([[40,y],[200,20]])
@@ -41,11 +44,18 @@ class HomeViewController < UIViewController
 
   end
   
+  def redisplay_pairs
+    UIApplication.sharedApplication.delegate.reset_pairing()
+    @pair_labels.each do |pair_label|
+      pair_label.removeFromSuperview()
+    end
+    
+    display_pairs
+  end
+  
   def motionEnded(motion, withEvent:event)
     puts "got a end motion"
-    UIApplication.sharedApplication.delegate.reset_pairing()
-
-    self.viewWillAppear(false)
+    self.redisplay_pairs()
     
     puts "done end motion"
   end
