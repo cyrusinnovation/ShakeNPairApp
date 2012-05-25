@@ -9,6 +9,7 @@ class ReverseViewController < UIViewController
 
     navItem = UINavigationItem.alloc.initWithTitle("Edit Team")
     navItem.leftBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemDone, target:self, action:"doneAction:")
+    navItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action:"doneAction:")
     @topBar.pushNavigationItem(navItem, animated: false)
 
     view.addSubview(@topBar)
