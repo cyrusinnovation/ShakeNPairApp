@@ -64,7 +64,7 @@ class HomeViewController < UIViewController
   end  
 
   def transitionToEditScreen(sender)
-    reverseViewController = ReverseViewController.alloc.init
+    reverseViewController = UINavigationController.alloc.initWithRootViewController(EditTeamViewController.alloc.init)
     reverseViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal
     self.presentViewController(reverseViewController, animated:true, completion:lambda do end )
   end

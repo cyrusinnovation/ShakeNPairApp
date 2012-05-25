@@ -1,11 +1,22 @@
 class EditTeamViewController < UITableViewController
   def loadView
-    frame = UIScreen.mainScreen.applicationFrame
-    self.tableView = UITableView.alloc.initWithFrame([[frame.origin.x, frame.origin.y+20],[frame.size.width, frame.size.height]], style:UITableViewStyleGrouped)
+    self.tableView = UITableView.alloc.initWithFrame(UIScreen.mainScreen.applicationFrame, style:UITableViewStyleGrouped)
   end
 
   def viewDidLoad
     view.allowsSelection = false
+    self.title = "Edit Team"
+    
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemDone, target:self, action:"doneEditing:")
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action:"showAddTeamMemberScreen:")
+  end
+
+  def doneEditing(sender)
+    self.dismissViewControllerAnimated(true, completion:lambda do end) 
+  end
+  
+  def showAddTeamMemberScreen(sender)
+    self.navigationController.pushViewController(AddTeamMemberViewController.alloc.init, animated:true)
   end
 
   def numberOfSectionsInTableView(tableView)
