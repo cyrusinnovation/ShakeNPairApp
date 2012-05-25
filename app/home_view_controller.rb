@@ -49,7 +49,7 @@ class HomeViewController < UIViewController
 
   def make_pair_label(pair, y)
     label = UILabel.alloc.initWithFrame([[0,y],[view.bounds.size.width,39]])
-    label.text = (pair.size == 2) ? "#{pair.first} & #{pair.last}" : "#{pair.first}"
+    label.text = (pair.size == 2) ? "#{pair.first.name} & #{pair.last.name}" : "#{pair.first.name}"
     label
   end
 
