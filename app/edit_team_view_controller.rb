@@ -20,6 +20,7 @@ class EditTeamViewController < UITableViewController
     true
   end
   
+  
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
     cell = tableView.dequeueReusableCellWithIdentifier("team member cell")
     cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleSubtitle, reuseIdentifier:"team member cell") if cell.nil?
@@ -36,7 +37,6 @@ class EditTeamViewController < UITableViewController
   end
   
   def switchWasSwitched(sender)
-    puts "switching"
     TeamMemberStore.shared.team_members[sender.tag].included = sender.isOn
     TeamMemberStore.shared.save
   end
@@ -46,7 +46,7 @@ class EditTeamViewController < UITableViewController
   def tableView(tableView, commitEditingStyle:editingStyle, forRowAtIndexPath:indexPath)
     if (UITableViewCellEditingStyleDelete == editingStyle)
       TeamMemberStore.shared.remove_team_member(TeamMemberStore.shared.team_members[indexPath.row])
-      view.reloadData
+      view.deleteRowsAtIndexPaths([indexPath], withRowAnimation:UITableViewRowAnimationAutomatic)
     end
   end
 
