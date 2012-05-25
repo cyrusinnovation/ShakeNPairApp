@@ -64,9 +64,9 @@ class HomeViewController < UIViewController
   end  
 
   def transitionToEditScreen(sender)
-    editTeamViewController = EditTeamViewController.alloc.init
-    editTeamViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal
-    self.presentViewController(editTeamViewController, animated:true, completion:lambda do end )
+    reverseViewController = ReverseViewController.alloc.init
+    reverseViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal
+    self.presentViewController(reverseViewController, animated:true, completion:lambda do end )
   end
   
   def display_info_button

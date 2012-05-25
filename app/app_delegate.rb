@@ -5,17 +5,23 @@ class AppDelegate
     @window.rootViewController.wantsFullScreenLayout = true
     @window.makeKeyAndVisible
 
+    # load_test_data
+
     true
   end
-  
-  def team
-    ["Jon", "Laura", "Matt", "Moss", "Nick", "Another Matt", "Another Moss", "Will", "Jackie"]
+
+  def load_test_data
+    # ["Jon", "Laura", "Matt", "Moss", "Nick", "Another Matt", "Another Moss", "Will", "Jackie"].each do |name|
+    #      member = TeamMemberStore.shared.create_team_member()
+    #      member.name = name
+    #      TeamMemberStore.shared.save_team_member(member)
+    #    end
   end
-  
+
   def current_pairing
-    @current_pairing ||= team.shuffle.shuffle.shuffle.each_slice(2).to_a
+    @current_pairing ||= TeamMemberStore.shared.team_members.collect{|u| u.name if u.included}.shuffle.shuffle.shuffle.each_slice(2).to_a
   end
-  
+
   def reset_pairing
     @current_pairing = nil
   end
