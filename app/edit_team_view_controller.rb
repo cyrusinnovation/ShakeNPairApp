@@ -60,7 +60,5 @@ class EditTeamViewController < UITableViewController
       view.deleteRowsAtIndexPaths([indexPath], withRowAnimation:UITableViewRowAnimationAutomatic)
     end
   end
-
-
   
 end

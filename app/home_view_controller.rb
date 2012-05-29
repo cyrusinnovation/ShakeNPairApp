@@ -1,6 +1,11 @@
-class HomeViewController < UIViewController
-
+class HomeViewController < UITableViewController
   #framework methods
+  
+  def loadView
+    super
+    self.tableView = UITableView.alloc.initWithFrame(UIScreen.mainScreen.applicationFrame, style:UITableViewStyleGrouped)
+  end
+
 
   def canBecomeFirstResponder 
     true
@@ -17,7 +22,8 @@ class HomeViewController < UIViewController
   end
 
   def viewDidLoad
-    display_pairs
+    # display_pairs
+    tableView.allowsSelection = false
     display_info_button
   end
 
@@ -25,6 +31,22 @@ class HomeViewController < UIViewController
     redisplay_pairs
   end
 
+
+  def numberOfSectionsInTableView(tableView)
+    UIApplication.sharedApplication.delegate.current_pairing.size
+  end
+  
+  def tableView(tableView, numberOfRowsInSection:section)
+    UIApplication.sharedApplication.delegate.current_pairing[section].size
+  end
+
+  def tableView(tableView, cellForRowAtIndexPath:indexPath)
+    cell = tableView.dequeueReusableCellWithIdentifier("home page cell")
+    cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:"home page cell") if cell.nil?
+    
+    cell.textLabel.text = UIApplication.sharedApplication.delegate.current_pairing[indexPath.section][indexPath.row].name
+    cell
+  end
 
   #non-framework methods
 
@@ -55,12 +77,7 @@ class HomeViewController < UIViewController
 
   def redisplay_pairs
     UIApplication.sharedApplication.delegate.reset_pairing()
-    @pair_labels.each do |pair_label|
-      pair_label.removeFromSuperview()
-    end
-    @pair_labels = nil
-
-    display_pairs
+    tableView.reloadData
   end  
 
   def transitionToEditScreen(sender)
@@ -72,10 +89,10 @@ class HomeViewController < UIViewController
   def display_info_button
     editTeamButton = UIButton.buttonWithType(UIButtonTypeInfoLight)
     
-    editTeamButton.frame = CGRectMake(view.bounds.size.width - 30,
-                                  view.bounds.size.height - 30, 
-                                  editTeamButton.bounds.size.width, 
-                                  editTeamButton.bounds.size.height)
+    editTeamButton.frame = CGRectMake(self.tableView.frame.size.width - 30,
+                                  self.tableView.frame.size.height - 50, 
+                                  editTeamButton.frame.size.width, 
+                                  editTeamButton.frame.size.height)
     editTeamButton.addTarget(self, action:"transitionToEditScreen:", forControlEvents:UIControlEventTouchUpInside)
     view.addSubview(editTeamButton)
   end

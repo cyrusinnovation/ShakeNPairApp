@@ -18,6 +18,7 @@ class AddTeamMemberViewController < UITableViewController
   end
   
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
+    puts "making table cells"
     cell = tableView.dequeueReusableCellWithIdentifier("add member cell")
     cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:"add member cell") if cell.nil?
     

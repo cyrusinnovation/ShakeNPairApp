@@ -1,6 +1,7 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
+    application.setStatusBarHidden(false)
+    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.applicationFrame)
     @window.rootViewController = HomeViewController.alloc.init
     @window.rootViewController.wantsFullScreenLayout = true
     @window.makeKeyAndVisible
