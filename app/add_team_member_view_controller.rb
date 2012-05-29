@@ -15,6 +15,11 @@ class AddTeamMemberViewController < UITableViewController
     self.title = "Add Member"
     tableView.allowsSelection = false
     self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemDone, target:self, action:"doneAddingTeamMember:")
+   
+  end
+  
+  def viewDidUnload
+    @textField.resignFirstResponder
   end
   
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
@@ -26,6 +31,7 @@ class AddTeamMemberViewController < UITableViewController
     @textField.placeholder = "Name of new team member"
     @textField.returnKeyType = UIReturnKeyDone
     @textField.delegate = self
+    @textField.becomeFirstResponder
     cell.addSubview(@textField)
     cell
   end
