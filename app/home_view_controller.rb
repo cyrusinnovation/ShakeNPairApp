@@ -1,6 +1,13 @@
 class HomeViewController < UIViewController
 
   #framework methods
+  
+  def loadView
+    scrollView = UIScrollView.alloc.initWithFrame(UIScreen.mainScreen.applicationFrame)
+    scrollView.contentSize = CGSizeMake(320, UIApplication.sharedApplication.delegate.current_pairing.size*40 + 40)
+    self.view = scrollView
+    
+  end
 
   def canBecomeFirstResponder 
     true
@@ -41,7 +48,7 @@ class HomeViewController < UIViewController
     end
 
     @pair_labels.each_with_index do |label, index|
-      UIView.animateWithDuration(0.2, delay:index, options:UIViewAnimationCurveLinear, animations:lambda do
+      UIView.animateWithDuration(0.2, delay:index/2.0, options:UIViewAnimationCurveLinear, animations:lambda do
           label.alpha = 1
       end, completion:lambda do |finished| end)
     end
@@ -70,7 +77,7 @@ class HomeViewController < UIViewController
   end
   
   def display_info_button
-    editTeamButton = UIButton.buttonWithType(UIButtonTypeInfoLight)
+    editTeamButton = UIButton.buttonWithType(UIButtonTypeInfoDark)
     
     editTeamButton.frame = CGRectMake(view.bounds.size.width - 30,
                                   view.bounds.size.height - 30, 

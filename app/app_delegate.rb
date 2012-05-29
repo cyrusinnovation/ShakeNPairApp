@@ -20,7 +20,7 @@ class AppDelegate
   end
 
   def current_pairing
-    @current_pairing ||= TeamMemberStore.shared.team_members.select{|u| u.name if u.included?}.shuffle.shuffle.shuffle.each_slice(2).to_a
+    @current_pairing ||= TeamMemberStore.shared.team_members.select { |u| u.included? }.shuffle.shuffle.shuffle.each_slice(2).to_a
   end
 
   def reset_pairing
